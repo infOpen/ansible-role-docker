@@ -2,9 +2,11 @@
 
 # Tests for docker role
 
-- hosts : localhost
-  remote_user : root
-  roles :
+- hosts: localhost
+  remote_user: root
+  roles:
     - ansible-role-docker
-  vars : {}
+  post_tasks:
+    - include: ./common_tests.yml
+  vars: {}
 

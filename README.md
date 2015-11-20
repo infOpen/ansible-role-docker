@@ -15,8 +15,45 @@ Follow the possible variables with their default values
 
 ### Defaults variables for docker
 
+    # Default variables for Debian family repository management
+    # Set these variables into a file to erase default values for debian family
+    # Set the path of this file to docker_custom_repository_vars_file variable
+    docker_custom_repository_vars_file : False
+    docker_apt_repository_key_server: ''
+    docker_apt_repository_key_id: ''
+    docker_apt_repository_file_content: ''
+
+    # Sometimes, key servers respond slowly, add delay and retry
+    docker_apt_repository_key_retries: 3
+    docker_apt_repository_key_delay: 10
+
 ### Specific OS family vars :
 
+#### Debian family specific vars
+
+    # GPG Key used to authenticate repository and packages
+    docker_apt_repository_key_server: 'hkp://p80.pool.sks-keyservers.net:80'
+    docker_apt_repository_key_id: '58118E89F3A912897C070ADBF76221572C52609D'
+
+    # Repository settings
+    docker_apt_repository_content: >
+      deb https://apt.dockerproject.org/repo
+      {{ ansible_distribution | lower }}-{{ ansible_distribution_release | lower }}
+      main
+
+## Misc informations
+
+### Use a custom apt repository
+
+With this role, you can customize the apt repository if you use your own
+local mirror per example.
+
+1. Create a file, and set **docker_custom_repository_vars_file** variable with
+   its path
+2. Into this file, set these variable :
+  - docker_apt_repository_key_server
+  - docker_apt_repository_key_id
+  - docker_apt_repository_file_content
 
 ## Dependencies
 

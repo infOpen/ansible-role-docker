@@ -2,3 +2,12 @@
 
 # Common tests between local Vagrant and Travis
 
+# Check apt key is imported
+- name: Test - APT key should be imported
+  become: True
+  register: docker_test_apt_key
+  command: "apt-key export '{{ docker_apt_repository_key_id }}'"
+  changed_when: False
+  failed_when: "docker_test_apt_key.stderr != ''"
+  when: ansible_os_family == 'Debian'
+

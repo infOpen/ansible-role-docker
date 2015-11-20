@@ -1,3 +1,17 @@
 ---
 
 # Tasks file for docker
+- name: Load the OS specific varibles
+  include_vars: "{{ role_path }}/vars/{{ ansible_os_family | lower }}.yml"
+
+- name: Load user specific varibles
+  include_vars: "{{ docker_custom_repository_vars_file | trim }}"
+  when:
+    - docker_custom_repository_vars_file != False
+
+- include: install_debian_family.yml
+  tags:
+    - install
+    - docker
+  when: ansible_os_family == "Debian"
+
