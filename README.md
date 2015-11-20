@@ -27,6 +27,9 @@ Follow the possible variables with their default values
     docker_apt_repository_key_retries: 3
     docker_apt_repository_key_delay: 10
 
+    # Packages to remove before install docker
+    docker_packages_to_remove: False
+
 ### Specific OS family vars :
 
 #### Debian family specific vars
@@ -40,6 +43,17 @@ Follow the possible variables with their default values
       deb https://apt.dockerproject.org/repo
       {{ ansible_distribution | lower }}-{{ ansible_distribution_release | lower }}
       main
+
+    # Packages to remove before install
+    docker_packages_to_remove:
+      - lxc-docker*
+      - docker.io*
+
+#### Ubuntu distributions specific vars
+
+    # Packages to remove before install
+    docker_packages_to_remove:
+      - docker.io*
 
 ## Misc informations
 

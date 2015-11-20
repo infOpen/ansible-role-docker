@@ -20,3 +20,11 @@
     state: present
     update_cache: True
 
+- name: Remove old packages
+  become: True
+  apt:
+    name: "{{ item }}"
+    purge: True
+    state: absent
+  with_items: docker_packages_to_remove
+

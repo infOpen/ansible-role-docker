@@ -12,3 +12,8 @@ docker_apt_repository_file_content: >
   {{ ansible_distribution | lower }}-{{ ansible_distribution_release | lower }}
   main
 
+# Packages to remove before install
+docker_packages_to_remove:
+  - lxc-docker*
+  - docker.io*
+

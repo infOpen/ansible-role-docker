@@ -14,3 +14,6 @@ docker_apt_repository_file_content: ''
 docker_apt_repository_key_retries: 3
 docker_apt_repository_key_delay: 10
 
+# Packages to remove before install docker
+docker_packages_to_remove: False
+
