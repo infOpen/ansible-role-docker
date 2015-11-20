@@ -2,3 +2,36 @@
 
 # Common tests between local Vagrant and Travis
 
+# Check apt key is imported
+- name: Test - APT key should be imported
+  become: True
+  register: docker_test_apt_key
+  command: "apt-key export '{{ docker_apt_repository_key_id }}'"
+  changed_when: False
+  failed_when: "docker_test_apt_key.stderr != ''"
+  when: ansible_os_family == 'Debian'
+
+- name: The old packages need to be removed
+  become: True
+  register: docker_test_packages_remove
+  apt:
+    name: "{{ item }}"
+    dpkg_options: 'simulate'
+    purge: True
+    state: absent
+  changed_when: False
+  failed_when: False
+  with_items: docker_packages_to_remove
+  when:
+    - ansible_os_family == 'Debian'
+    - docker_packages_to_remove != False
+
+- name: Check if packages are removed
+  fail:
+    msg: 'Old packages are not removed !'
+  with_items: docker_test_packages_remove.results
+  when:
+    - docker_test_packages_remove is defined
+    - item.stdout is defined
+    - item.stdout.find('will be REMOVED') != -1
+

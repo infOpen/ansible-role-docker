@@ -1,3 +1,19 @@
 ---
 
 # Defaults file for docker
+
+# Default variables for Debian family repository management
+# Set these variables into a file to erase default values for debian family
+# Set the path of this file to docker_custom_repository_vars_file variable
+docker_custom_repository_vars_file : False
+docker_apt_repository_key_server: ''
+docker_apt_repository_key_id: ''
+docker_apt_repository_file_content: ''
+
+# Sometimes, key servers respond slowly, add delay and retry
+docker_apt_repository_key_retries: 3
+docker_apt_repository_key_delay: 10
+
+# Packages to remove before install docker
+docker_packages_to_remove: False
+
