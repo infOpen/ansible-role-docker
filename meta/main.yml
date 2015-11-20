@@ -1,0 +1,21 @@
+---
+
+galaxy_info:
+  author: Alexandre Chaussier
+  description: Install docker package
+  company: Infopen (http://infopen.pro)
+  license: MIT
+  min_ansible_version: 1.5
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+        - vivid
+        - wily
+
+  categories:
+    - system
+
+dependencies: []
+

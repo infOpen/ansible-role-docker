@@ -1,0 +1,10 @@
+---
+
+# Tests for docker role
+
+- hosts : localhost
+  remote_user : root
+  roles :
+    - ansible-role-docker
+  vars : {}
+
