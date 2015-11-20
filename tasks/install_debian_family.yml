@@ -4,12 +4,14 @@
 
 - name: Add docker repository key
   become: True
+  register: docker_check_import_key
   apt_key:
     keyserver: "{{ docker_apt_repository_key_server }}"
     id: "{{ docker_apt_repository_key_id }}"
     state: present
   retries: "{{ docker_apt_repository_key_retries }}"
   delay: "{{ docker_apt_repository_key_delay }}"
+  until: docker_check_import_key.stderr is not defined
 
 - name: Create docker repository file and update cache
   become: True
