@@ -17,3 +17,7 @@ docker_packages_to_remove:
   - lxc-docker*
   - docker.io*
 
+# Packages to install
+docker_packages_to_install:
+  - docker-engine
+
