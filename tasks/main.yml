@@ -20,6 +20,12 @@
     - docker
   when: ansible_os_family == "Debian"
 
+- name: Manage docker configuration
+  include: configure.yml
+  tags:
+    - configure
+    - docker
+
 - name: Service management
   become: True
   register: docker_test_service_settings

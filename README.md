@@ -39,6 +39,10 @@ Follow the possible variables with their default values
     docker_service_enabled: True
     docker_service_state: started
 
+    # Configuration
+    docker_configuration_file_dest: '/etc/default/docker'
+    docker_configuration_file_mode: '0644'
+    docker_configuration_file_owner: 'root'
 
     # Docker daemon options
     #----------------------
@@ -116,7 +120,7 @@ Follow the possible variables with their default values
     docker_daemon_option_insecure_registry: []
 
     # Default IP when binding container ports
-    docker_daemon_option_ip: 0.0.0.0
+    docker_daemon_option_ip: '0.0.0.0'
 
     # Enable net.ipv4.ip_forward
     docker_daemon_option_ip_forward: True
@@ -167,13 +171,13 @@ Follow the possible variables with their default values
     docker_daemon_option_tls: False
 
     # Trust certs signed only by this CA
-    docker_daemon_option_tlscacert: '~/.docker/ca.pem'
+    docker_daemon_option_tlscacert: ''
 
     # Path to TLS certificate file
-    docker_daemon_option_tlscert: '~/.docker/cert.pem'
+    docker_daemon_option_tlscert: ''
 
     # Path to TLS key file
-    docker_daemon_option_tlskey: '~/.docker/key.pem'
+    docker_daemon_option_tlskey: ''
 
     # Use TLS and verify the remote
     docker_daemon_option_tlsverify: False
