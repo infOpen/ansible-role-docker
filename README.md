@@ -30,6 +30,15 @@ Follow the possible variables with their default values
     # Packages to remove before install docker
     docker_packages_to_remove: False
 
+    # Packages to install
+    docker_packages_to_install: []
+    docker_package_to_install_state: present
+
+    # Service settings
+    docker_service_name: 'docker'
+    docker_service_enabled: True
+    docker_service_state: started
+
 ### Specific OS family vars :
 
 #### Debian family specific vars
@@ -48,6 +57,10 @@ Follow the possible variables with their default values
     docker_packages_to_remove:
       - lxc-docker*
       - docker.io*
+
+    # Packages to install
+    docker_packages_to_install:
+      - docker-engine
 
 #### Ubuntu distributions specific vars
 

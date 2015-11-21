@@ -28,3 +28,11 @@
     state: absent
   with_items: docker_packages_to_remove
 
+- name: Install new packages
+  become: True
+  apt:
+    name: "{{ item }}"
+    state: "{{ docker_package_to_install_state }}"
+  with_items: docker_packages_to_install
+  notify: restart docker
+

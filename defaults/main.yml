@@ -17,3 +17,12 @@ docker_apt_repository_key_delay: 10
 # Packages to remove before install docker
 docker_packages_to_remove: False
 
+# Packages to install
+docker_packages_to_install: []
+docker_package_to_install_state: 'present'
+
+# Service settings
+docker_service_name: 'docker'
+docker_service_enabled: True
+docker_service_state: started
+
