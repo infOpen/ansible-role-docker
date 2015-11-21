@@ -8,5 +8,6 @@
     - .
   post_tasks:
     - include: ./common_tests.yml
-  vars: {}
+  vars:
+    docker_package_to_install_state: 'latest'
 
