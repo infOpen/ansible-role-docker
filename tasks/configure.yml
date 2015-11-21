@@ -12,21 +12,3 @@
     group: "{{ docker_configuration_file_group }}"
   notify: restart docker
 
-- name: Add debug for travis error
-  become: True
-  register: docker_test_config_file
-  command: "cat /etc/default/docker"
-
-- name: Add debug for travis error
-  become: True
-  register: docker_test_service_log_file
-  command: "cat /var/log/upstart/docker.log"
-
-- name: Display content of config file
-  debug:
-    var: docker_test_config_file
-
-- name: Display content of docker service log
-  debug:
-    var: docker_test_service_log_file
-
