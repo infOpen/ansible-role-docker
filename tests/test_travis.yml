@@ -8,5 +8,7 @@
     - ansible-role-docker
   post_tasks:
     - include: ./common_tests.yml
-  vars: {}
+  vars:
+    # Travis box include old version of docker-engine, so force latest version
+    docker_package_to_install_state: 'latest'
 
