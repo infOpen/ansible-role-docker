@@ -21,3 +21,8 @@ docker_packages_to_remove: False
 docker_packages_to_install: []
 docker_package_to_install_state: 'present'
 
+# Service settings
+docker_service_name: 'docker'
+docker_service_enabled: True
+docker_service_state: started
+

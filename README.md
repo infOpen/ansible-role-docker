@@ -34,6 +34,11 @@ Follow the possible variables with their default values
     docker_packages_to_install: []
     docker_package_to_install_state: present
 
+    # Service settings
+    docker_service_name: 'docker'
+    docker_service_enabled: True
+    docker_service_state: started
+
 ### Specific OS family vars :
 
 #### Debian family specific vars
