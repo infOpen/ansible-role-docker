@@ -1,3 +1,177 @@
 ---
 
 # Defaults file for docker
+
+# Default variables for Debian family repository management
+# Set these variables into a file to erase default values for debian family
+# Set the path of this file to docker_custom_repository_vars_file variable
+docker_custom_repository_vars_file : False
+docker_apt_repository_key_server: ''
+docker_apt_repository_key_id: ''
+docker_apt_repository_file_content: ''
+
+# Sometimes, key servers respond slowly, add delay and retry
+docker_apt_repository_key_retries: 3
+docker_apt_repository_key_delay: 10
+
+# Packages to remove before install docker
+docker_packages_to_remove: False
+
+# Packages to install
+docker_packages_to_install: []
+docker_package_to_install_state: 'present'
+
+# Service settings
+docker_service_name: 'docker'
+docker_service_enabled: True
+docker_service_state: started
+
+# Configuration
+docker_configuration_file_dest: '/etc/default/docker'
+docker_configuration_file_mode: '0644'
+docker_configuration_file_owner: 'root'
+docker_configuration_file_group: 'root'
+docker_configuration_binary_file: ''
+docker_temporary_files_path: ''
+
+# Docker daemon options
+#----------------------
+
+# Set CORS headers in the remote API
+docker_daemon_option_api_cors_header: ''
+
+# Attach containers to a network bridge
+docker_daemon_option_bridge: ''
+
+# Specify network bridge IP
+docker_daemon_option_bip: ''
+
+# Enable debug mode
+docker_daemon_option_debug: False
+
+# Container default gateway IPv4 address
+docker_daemon_option_default_gateway: ''
+
+# Container default gateway IPv6 address
+docker_daemon_option_default_gateway_v6: ''
+
+# URL of the distributed storage backend
+docker_daemon_option_cluster_store: ''
+
+# Address of the daemon instance on the cluster
+docker_daemon_option_cluster_advertise: ''
+
+# Set cluster options (dict array)
+docker_daemon_option_cluster_store_opt: []
+
+# DNS server to use
+docker_daemon_option_dns: []
+
+# DNS options to use
+docker_daemon_option_dns_opt: []
+
+# DNS search domains to use
+docker_daemon_option_dns_search: []
+
+# Set default ulimit settings for containers
+docker_daemon_option_default_ulimit: []
+
+# Exec driver to use
+docker_daemon_option_exec_driver: 'native'
+
+# Set exec driver options
+docker_daemon_option_exec_opt: []
+
+# Root of the Docker execdriver
+docker_daemon_option_exec_root: '/var/run/docker'
+
+# IPv4 subnet for fixed IPs
+docker_daemon_option_fixed_cidr: ''
+
+# IPv6 subnet for fixed IPs
+docker_daemon_option_fixed_cidr_v6: ''
+
+# Group for the unix socket
+docker_daemon_option_group: 'docker'
+
+# Root of the Docker runtime
+docker_daemon_option_graph: '/var/lib/docker'
+
+# Daemon socket(s) to connect to
+docker_daemon_option_host: []
+
+# Print usage
+docker_daemon_option_help: False
+
+# Enable inter-container communication
+docker_daemon_option_icc: True
+
+# Enable insecure registry communication
+docker_daemon_option_insecure_registry: []
+
+# Default IP when binding container ports
+docker_daemon_option_ip: '0.0.0.0'
+
+# Enable net.ipv4.ip_forward
+docker_daemon_option_ip_forward: True
+
+# Enable IP masquerading
+docker_daemon_option_ip_masq: True
+
+# Enable addition of iptables rules
+docker_daemon_option_iptables: True
+
+# Enable IPv6 networking
+docker_daemon_option_ipv6: False
+
+# Set the logging level
+docker_daemon_option_log_level: 'info'
+
+# Set key: value labels to the daemon
+docker_daemon_option_label: []
+
+# Default driver for container logs
+docker_daemon_option_log_driver: 'json-file'
+
+# Log driver specific options
+docker_daemon_option_log_opt: []
+
+# Set the containers network MTU
+docker_daemon_option_mtu: 0
+
+# Do not contact legacy registries
+docker_daemon_option_disable_legacy_registry: False
+
+# Path to use for daemon PID file
+docker_daemon_option_pidfile: '/var/run/docker.pid'
+
+# Preferred Docker registry mirror
+docker_daemon_option_registry_mirror: []
+
+# Storage driver to use
+docker_daemon_option_storage_driver: ''
+
+# Enable selinux support
+docker_daemon_option_selinux_enabled: False
+
+# Set storage driver options
+docker_daemon_option_storage_opt: []
+
+# Use TLS; implied by --tlsverify
+docker_daemon_option_tls: False
+
+# Trust certs signed only by this CA
+docker_daemon_option_tlscacert: ''
+
+# Path to TLS certificate file
+docker_daemon_option_tlscert: ''
+
+# Path to TLS key file
+docker_daemon_option_tlskey: ''
+
+# Use TLS and verify the remote
+docker_daemon_option_tlsverify: False
+
+# Use userland proxy for loopback traffic
+docker_daemon_option_userland_proxy: True
+

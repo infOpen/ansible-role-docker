@@ -1,0 +1,8 @@
+---
+
+# Specific Ubuntu variables
+
+# Packages to remove before install
+docker_packages_to_remove:
+  - docker.io*
+

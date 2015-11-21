@@ -2,9 +2,13 @@
 
 # Tests for docker role
 
-- hosts : localhost
-  remote_user : root
-  roles :
+- hosts: localhost
+  remote_user: root
+  roles:
     - ansible-role-docker
-  vars : {}
+  post_tasks:
+    - include: ./common_tests.yml
+  vars:
+    # Travis box include old version of docker-engine, so force latest version
+    docker_package_to_install_state: 'latest'
 

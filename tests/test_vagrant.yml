@@ -2,9 +2,12 @@
 
 # Tests for docker role
 
-- hosts : all
-  remote_user : vagrant
-  roles :
+- hosts: all
+  remote_user: vagrant
+  roles:
     - .
-  vars : {}
+  post_tasks:
+    - include: ./common_tests.yml
+  vars:
+    docker_package_to_install_state: 'latest'
 
