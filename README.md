@@ -6,23 +6,35 @@ Install docker package.
 
 ## Requirements
 
-This role requires Ansible 1.5 or higher, and platform requirements are listed
-in the metadata file.
+This role requires Ansible 2.0 or higher,
+and platform requirements are listed in the metadata file.
 
 ## Testing
 
-This role has two test methods :
+This role contains two tests methods :
+- locally using Vagrant
+- automatically with Travis
 
-- localy with Vagrant : vagrant up
-- automaticaly by Travis
+### Testing dependencies
+- install [Vagrant](https://www.vagrantup.com)
+- install [Vagrant serverspec plugin](https://github.com/jvoorhis/vagrant-serverspec)
+    $ vagrant plugin install vagrant-serverspec
+- install ruby dependencies
+    $ bundle install
 
-Vagrant should be used to check the role before push changes to Github.
+### Running tests
+
+#### Run playbook and test
+
+- if Vagrant box not running
+    $ vagrant up
+
+- if Vagrant box running
+    $ vagrant provision
 
 ## Role Variables
 
-Follow the possible variables with their default values
-
-### Defaults variables for docker
+### Default role variables
 
     # Default variables for Debian family repository management
     # Set these variables into a file to erase default values for debian family
@@ -96,7 +108,7 @@ Follow the possible variables with their default values
     docker_daemon_option_default_ulimit: []
 
     # Exec driver to use
-    docker_daemon_option_exec_driver: 'native'
+    docker_daemon_option_exec_driver: False
 
     # Set exec driver options
     docker_daemon_option_exec_opt: []
@@ -245,7 +257,7 @@ None
 
     - hosts: servers
       roles:
-         - { role: achaussier.docker }
+         - { role: infOpen.docker }
 
 ## License
 

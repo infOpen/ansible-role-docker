@@ -1,14 +1,19 @@
 ---
 
-# Tests for docker role
+# Role travis tests
 
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-role-docker
+    - "{{ role_name }}"
   post_tasks:
-    - include: ./common_tests.yml
+    - include: ./test_common.yml
   vars:
+    docker_daemon_option_ip: '127.0.0.1'
+    docker_daemon_option_host:
+      - 'tcp://127.0.0.1:8081'
+      - 'unix:///var/run/docker.sock'
     # Travis box include old version of docker-engine, so force latest version
     docker_package_to_install_state: 'latest'
+    role_name: "{{ lookup('env','TRAVIS_REPO_SLUG') }}"
 

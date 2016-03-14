@@ -77,7 +77,7 @@ docker_daemon_option_dns_search: []
 docker_daemon_option_default_ulimit: []
 
 # Exec driver to use
-docker_daemon_option_exec_driver: 'native'
+docker_daemon_option_exec_driver: ''
 
 # Set exec driver options
 docker_daemon_option_exec_opt: []
