@@ -28,10 +28,8 @@
 
 - name: Service management
   become: True
-  register: docker_test_service_settings
   service:
     name: "{{ docker_service_name }}"
     enabled: "{{ docker_service_enabled }}"
     state: "{{ docker_service_state }}"
-  failed_when: docker_test_service_settings.changed
 
