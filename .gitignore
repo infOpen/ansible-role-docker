@@ -1,9 +1,14 @@
-# Ignore vagrant data
-.vagrant
-
-# Ignore swap files
+# Swap files
 *.swp
 
-# Ignore roles dependencies used for vagrant tests
-roles
+# Python bytecode
+*.pyc
 
+# Pytest
+.cache
+
+# Vagrant
+.vagrant
+
+# Bundle
+.bundle
