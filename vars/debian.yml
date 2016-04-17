@@ -14,10 +14,9 @@ docker_apt_repository_file_content: "{{
 
 # Packages to remove before install
 docker_packages_to_remove:
-  - lxc-docker*
-  - docker.io*
+  - 'lxc-docker*'
+  - 'docker.io*'
 
 # Packages to install
 docker_packages_to_install:
-  - docker-engine
-
+  - 'docker-engine'

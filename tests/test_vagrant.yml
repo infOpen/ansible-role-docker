@@ -2,12 +2,12 @@
 
 # Role Vagrant tests
 
-- hosts: all
-  remote_user: vagrant
+- hosts: 'all'
+  remote_user: 'vagrant'
   roles:
     - "{{ role_name }}"
   post_tasks:
-    - include: ./test_common.yml
+    - include: './test_common.yml'
   vars:
     docker_daemon_option_ip: '127.0.0.1'
     docker_daemon_option_host:

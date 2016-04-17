@@ -21,4 +21,3 @@ docker_packages_to_install:
   - 'docker-engine'
   - "linux-image-extra-{{ ansible_kernel }}"
   - 'apparmor'
-

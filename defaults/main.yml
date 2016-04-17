@@ -24,7 +24,7 @@ docker_package_to_install_state: 'present'
 # Service settings
 docker_service_name: 'docker'
 docker_service_enabled: True
-docker_service_state: started
+docker_service_state: 'started'
 
 # Configuration
 docker_configuration_file_dest: '/etc/default/docker'

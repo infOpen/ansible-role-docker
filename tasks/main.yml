@@ -1,39 +1,42 @@
 ---
 
 # Tasks file for docker
-- name: Load the distribution specific varibles
+- name: 'Load the distribution specific varibles'
   include_vars: "{{ role_path }}/vars/{{ ansible_distribution | lower }}.yml"
   tags:
-    - install
-    - docker
+    - 'install'
+    - 'docker'
 
-- name: Load user specific varibles
+
+- name: 'Load user specific varibles'
   include_vars: "{{ docker_custom_repository_vars_file | trim }}"
   when:
-    - docker_custom_repository_vars_file != False
+    - "{{ docker_custom_repository_vars_file != False }}"
   tags:
-    - install
-    - docker
+    - 'install'
+    - 'docker'
 
-- include: install_debian_family.yml
+
+- include: "{{ role_path }}/tasks/install_debian_family.yml"
   tags:
-    - install
-    - docker
-  when: ansible_os_family == "Debian"
+    - 'install'
+    - 'docker'
+  when: "{{ ansible_os_family == 'Debian' }}"
 
-- name: Manage docker configuration
-  include: configure.yml
+
+- name: 'Manage docker configuration'
+  include: "{{ role_path }}/tasks/configure.yml"
   tags:
-    - configure
-    - docker
+    - 'configure'
+    - 'docker'
 
-- name: Service management
+
+- name: 'Service management'
   become: True
   service:
     name: "{{ docker_service_name }}"
     enabled: "{{ docker_service_enabled }}"
     state: "{{ docker_service_state }}"
   tags:
-    - install
-    - docker
-
+    - 'install'
+    - 'docker'
