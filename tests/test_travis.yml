@@ -14,5 +14,5 @@
       - 'tcp://127.0.0.1:8081'
       - 'unix:///var/run/docker.sock'
     # Travis box include old version of docker-engine, so force latest version
-    docker_package_to_install_state: 'latest'
+    docker_packages_to_install_state: 'latest'
     role_name: "{{ lookup('env','TRAVIS_REPO_SLUG') }}"
