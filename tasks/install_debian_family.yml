@@ -2,37 +2,21 @@
 
 # Debian family specific installation tasks
 
-- name: Add docker repository key
+- name: 'Add docker repository key'
   become: True
-  register: docker_check_import_key
+  register: 'docker_check_import_key'
   apt_key:
-    keyserver: "{{ docker_apt_repository_key_server }}"
-    id: "{{ docker_apt_repository_key_id }}"
-    state: present
-  retries: "{{ docker_apt_repository_key_retries }}"
-  delay: "{{ docker_apt_repository_key_delay }}"
-  until: docker_check_import_key.stderr is not defined
+    keyserver: "{{ docker_apt_repo_key_server }}"
+    id: "{{ docker_apt_repo_key_id }}"
+    state: 'present'
+  retries: "{{ docker_apt_repo_key_retries }}"
+  delay: "{{ docker_apt_repo_key_delay }}"
+  until: "{{ docker_check_import_key.stderr is not defined }}"
 
-- name: Create docker repository file and update cache
+
+- name: 'Create docker repository file and update cache'
   become: True
   apt_repository:
-    repo: "{{ docker_apt_repository_file_content | trim }}"
-    state: present
+    repo: "{{ docker_apt_repo_file_content | trim }}"
+    state: 'present'
     update_cache: True
-
-- name: Remove old packages
-  become: True
-  apt:
-    name: "{{ item }}"
-    purge: True
-    state: absent
-  with_items: docker_packages_to_remove
-
-- name: Install new packages
-  become: True
-  apt:
-    name: "{{ item }}"
-    state: "{{ docker_package_to_install_state }}"
-  with_items: docker_packages_to_install
-  notify: restart docker
-

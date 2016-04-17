@@ -2,9 +2,9 @@
 
 # Handlers file for docker
 
-- name: restart docker
+- name: 'restart docker'
   become: True
   service:
     name: "{{ docker_service_name }}"
-    state: restarted
+    state: 'restarted'
 
