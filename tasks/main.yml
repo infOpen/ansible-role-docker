@@ -8,20 +8,30 @@
     - 'docker'
 
 
-- name: 'Load user specific varibles'
-  include_vars: "{{ docker_custom_repository_vars_file | trim }}"
-  when:
-    - "{{ docker_custom_repository_vars_file != False }}"
-  tags:
-    - 'install'
-    - 'docker'
-
-
 - include: "{{ role_path }}/tasks/install_debian_family.yml"
   tags:
     - 'install'
     - 'docker'
   when: "{{ ansible_os_family == 'Debian' }}"
+
+
+- name: 'Remove packages'
+  become: True
+  package:
+    name: "{{ item }}"
+    state: 'absent'
+  with_items: "{{ docker_packages_to_remove
+                    or docker_default_packages_to_remove }}"
+
+
+- name: 'Install packages'
+  become: True
+  package:
+    name: "{{ item }}"
+    state: "{{ docker_packages_to_install_state }}"
+  notify: 'restart docker'
+  with_items: "{{ docker_packages_to_install
+                    or docker_default_packages_to_install }}"
 
 
 - name: 'Manage docker configuration'

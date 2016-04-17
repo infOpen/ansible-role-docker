@@ -2,22 +2,12 @@
 
 # Specific Ubuntu variables
 
-# GPG Key used to authenticate repository and packages
-docker_apt_repository_key_server: 'hkp://p80.pool.sks-keyservers.net:80'
-docker_apt_repository_key_id: '58118E89F3A912897C070ADBF76221572C52609D'
-
-# Repository settings
-docker_apt_repository_file_content: "{{
-  'deb https://apt.dockerproject.org/repo '
-  ~ (ansible_distribution | lower ) ~ '-'
-  ~ (ansible_distribution_release | lower) ~ ' main' }}"
-
 # Packages to remove before install
-docker_packages_to_remove:
+docker_default_packages_to_remove:
   - 'docker.io*'
 
 # Packages to install
-docker_packages_to_install:
+docker_default_packages_to_install:
   - 'docker-engine'
   - "linux-image-extra-{{ ansible_kernel }}"
   - 'apparmor'
