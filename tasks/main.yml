@@ -20,8 +20,7 @@
   package:
     name: "{{ item }}"
     state: 'absent'
-  with_items: "{{ docker_packages_to_remove
-                    or docker_default_packages_to_remove }}"
+  with_items: "{{ docker_packages_to_remove }}"
 
 
 - name: 'Install packages'
@@ -30,8 +29,7 @@
     name: "{{ item }}"
     state: "{{ docker_packages_to_install_state }}"
   notify: 'restart docker'
-  with_items: "{{ docker_packages_to_install
-                    or docker_default_packages_to_install }}"
+  with_items: "{{ docker_packages_to_install }}"
 
 
 - name: 'Manage docker configuration'
