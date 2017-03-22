@@ -16,11 +16,11 @@ docker_apt_repo_key_delay: 10
 
 # Packages to remove before install docker, overwrite default role
 # docker_default_packages_to_remove variable
-docker_packages_to_remove: []
+docker_packages_to_remove: "{{ docker_default_packages_to_remove }}"
 
 # Packages to install, overwrite default role docker_default_packages_to_install
 # variable
-docker_packages_to_install: []
+docker_packages_to_install: "{{ docker_default_packages_to_install }}"
 docker_packages_to_install_state: 'present'
 
 # Service settings
