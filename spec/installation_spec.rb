@@ -15,7 +15,7 @@ describe 'docker Ansible role' do
     if ['debian', 'ubuntu'].include?(os[:family])
         default_file = '/etc/default/docker'
         packages = Array[ 'docker-engine' ]
-        process_name = 'docker'
+        process_name = 'dockerd'
         service_name = 'docker'
     end
 
