@@ -1,6 +1,14 @@
 ---
 
-# Tasks file for docker
+# Main tasks file for docker role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::docker'
+    - 'role::docker::init'
+
+
 - name: 'Load the distribution specific varibles'
   include_vars: "{{ role_path }}/vars/{{ ansible_distribution | lower }}.yml"
   tags:

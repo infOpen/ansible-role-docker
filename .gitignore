@@ -1,4 +1,10 @@
+# Ansible
+*.retry
+roles/
+tests/roles/
+
 # Swap files
+*.swo
 *.swp
 
 # Python bytecode
@@ -7,8 +13,12 @@
 # Pytest
 .cache
 
+# Tox
+.tox
+
 # Vagrant
 .vagrant
+*.log
 
-# Bundle
-.bundle
+# Molecule
+.molecule

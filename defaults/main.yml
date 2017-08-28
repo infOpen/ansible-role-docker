@@ -1,6 +1,6 @@
 ---
 
-# Defaults file for docker
+# Defaults vars file for docker role
 
 # Default variables for Debian family repository management
 docker_apt_repo_key_server: 'hkp://p80.pool.sks-keyservers.net:80'
@@ -176,4 +176,3 @@ docker_daemon_option_tlsverify: False
 
 # Use userland proxy for loopback traffic
 docker_daemon_option_userland_proxy: True
-

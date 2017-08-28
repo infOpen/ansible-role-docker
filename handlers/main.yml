@@ -1,10 +1,9 @@
 ---
 
-# Handlers file for docker
+# Handlers main file for docker role
 
 - name: 'restart docker'
   become: True
   service:
     name: "{{ docker_service_name }}"
     state: 'restarted'
-
