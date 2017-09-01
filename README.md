@@ -18,7 +18,6 @@ Travis run tests using Docker driver only.
 
 Currently, tests are done on:
 - Debian Jessie
-- Ubuntu Trusty
 - Ubuntu Xenial
 
 and use:

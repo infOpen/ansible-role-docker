@@ -6,53 +6,31 @@
   include: "{{ role_path }}/tasks/manage_variables.yml"
   tags:
     - 'role::docker'
+    - 'role::docker::config'
     - 'role::docker::init'
+    - 'role::docker::install'
 
 
-- name: 'Load the distribution specific varibles'
-  include_vars: "{{ role_path }}/vars/{{ ansible_distribution | lower }}.yml"
-  tags:
-    - 'install'
-    - 'docker'
-
-
-- include: "{{ role_path }}/tasks/install_debian_family.yml"
-  tags:
-    - 'install'
-    - 'docker'
-  when: "{{ ansible_os_family == 'Debian' }}"
-
-
-- name: 'Remove packages'
+- name: 'INSTALL | Manage OS family installation tasks'
   become: True
-  package:
-    name: "{{ item }}"
-    state: 'absent'
-  with_items: "{{ docker_packages_to_remove }}"
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
+  tags:
+    - 'role::docker'
+    - 'role::docker::install'
 
 
-- name: 'Install packages'
+- name: 'CONFIG | Manage docker configuration'
   become: True
-  package:
-    name: "{{ item }}"
-    state: "{{ docker_packages_to_install_state }}"
-  notify: 'restart docker'
-  with_items: "{{ docker_packages_to_install }}"
-
-
-- name: 'Manage docker configuration'
   include: "{{ role_path }}/tasks/configure.yml"
   tags:
-    - 'configure'
-    - 'docker'
+    - 'role::docker'
+    - 'role::docker::config'
 
 
-- name: 'Service management'
+- name: 'SERVICE | Manage service configuration'
   become: True
-  service:
-    name: "{{ docker_service_name }}"
-    enabled: "{{ docker_service_enabled }}"
-    state: "{{ docker_service_state }}"
+  include: "{{ role_path }}/tasks/manage_service.yml"
   tags:
-    - 'install'
-    - 'docker'
+    - 'role::docker'
+    - 'role::docker::config'
+    - 'role::docker::install'

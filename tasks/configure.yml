@@ -2,12 +2,20 @@
 
 # Manage Docker configuration
 
-- name: 'Generate default file'
-  become: True
+- name: 'CONFIG | Ensure folders exists'
+  file:
+    dest: "{{ docker_paths.dirs.config.path }}"
+    mode: "{{ docker_paths.dirs.config.mode | default('0644') }}"
+    owner: "{{ docker_paths.dirs.config.owner | default('root') }}"
+    group: "{{ docker_paths.dirs.config.group | default('root') }}"
+    state: 'directory'
+
+
+- name: 'CONFIG | Generate daemon.json file'
   template:
-    src: "{{ role_path }}/templates/default.j2"
-    dest: "{{ docker_configuration_file_dest }}"
-    mode: "{{ docker_configuration_file_mode }}"
-    owner: "{{ docker_configuration_file_owner }}"
-    group: "{{ docker_configuration_file_group }}"
-  notify: 'restart docker'
+    src: "{{ role_path }}/templates/daemon.json.j2"
+    dest: "{{ docker_paths.files.daemon_json.path }}"
+    mode: "{{ docker_paths.files.daemon_json.mode | default('0644') }}"
+    owner: "{{ docker_paths.files.daemon_json.owner | default('root') }}"
+    group: "{{ docker_paths.files.daemon_json.group | default('root') }}"
+  notify: 'HANDLER | Restart docker'

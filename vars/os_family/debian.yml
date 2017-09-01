@@ -1,0 +1,25 @@
+---
+
+# Debian OS family specific variables
+
+# Repositories
+_docker_repositories:
+  - repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable"
+
+_docker_repositories_keys:
+  - keyserver: 'hkp://p80.pool.sks-keyservers.net:80'
+    id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
+
+# Packages
+_docker_packages:
+  - name: 'docker.io*'
+    state: 'absent'
+  - name: 'docker-engine'
+    state: 'absent'
+  - name: 'docker-ce'
+
+_docker_system_dependencies:
+  - name: 'apt-transport-https'
+  - name: 'ca-certificates'
+  - name: 'curl'
+  - name: 'software-properties-common'

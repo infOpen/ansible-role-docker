@@ -1,0 +1,11 @@
+---
+
+# Specific Ubuntu Trusty distribution variables
+
+_docker_system_dependencies:
+  - name: 'apt-transport-https'
+  - name: 'ca-certificates'
+  - name: 'curl'
+  - name: 'software-properties-common'
+  - name: "linux-image-extra-{{ ansible_kernel }}"
+  - name: 'linux-image-extra-virtual'

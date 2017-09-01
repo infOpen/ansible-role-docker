@@ -1,0 +1,8 @@
+---
+
+# Specific Debian distributions variables
+
+_docker_packages:
+  - name: 'docker-engine'
+    state: 'absent'
+  - name: 'docker-ce'
