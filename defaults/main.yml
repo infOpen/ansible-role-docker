@@ -17,7 +17,6 @@ docker_repositories_keys: "{{ _docker_repositories_keys }}"
 docker_packages: "{{ _docker_packages }}"
 docker_system_dependencies: "{{ _docker_system_dependencies }}"
 
-
 # Service settings
 docker_service_name: 'docker'
 docker_service_enabled: True
@@ -35,13 +34,11 @@ docker_paths:
   dirs:
     config:
       path: '/etc/docker'
-docker_configuration_binary_file: ''
-docker_temporary_files_path: ''
+
 
 # Docker daemon options
 #----------------------
 
-# Set CORS headers in the remote API
 docker_daemon_options: "{{ _docker_daemon_options }}"
 _docker_daemon_options:
   api-cors-header: ''
@@ -57,16 +54,13 @@ _docker_daemon_options:
   dns-opt: []
   dns-search: []
   default-ulimit: []
-#  exec-driver: ''
   exec-opt: []
   exec-root: '/var/run/docker'
   fixed-cidr: ''
   fixed-cidr-v6: ''
   group: 'docker'
-# Deprecated
-#  graph: '/var/lib/docker'
   data-root: '/var/lib/docker'
-  host: []
+  hosts: []
   help: False
   icc: True
   insecure-registry: []
@@ -80,15 +74,11 @@ _docker_daemon_options:
   log-driver: 'json-file'
   log-opt: []
   mtu: 0
-#  disable-legacy-registry: False
   pidfile: '/var/run/docker.pid'
   registry-mirror: []
   storage-driver: ''
   selinux-enabled: False
   storage-opt: []
   tls: False
-#  tlscacert: ''
-#  tlscert: ''
-#  tlskey: ''
   tlsverify: False
   userland-proxy: True
