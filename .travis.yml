@@ -1,65 +1,27 @@
 ---
 
-# Travis file for docker role
+# Travis configuration
 
-dist: trusty
-sudo: required
+dist: 'trusty'
+sudo: 'required'
 
-language: ruby
-rvm:
-  - 2.1.5
+services:
+  - 'docker'
+
+language: 'python'
 
 env:
-    - ANSIBLE_ROLES_PATH="${TRAVIS_BUILD_DIR%/*/*}"
-
-before_install:
-  # Make sure everything's up to date.
-  - sudo apt-get update -qq
-
-  # Install ruby dependencies to run serverspec tests
-  - rvmsudo gem install serverspec rspec
-
-  # Install Ansible and pytest.
-  - >
-    sudo pip install ansible==2.1 paramiko PyYAML Jinja2 httplib2 six pytest
-    ansible-lint
-
-  # Remove rvmsudo warning
-  - >
-    [[ $(sudo grep secure_path /etc/sudoers) ]]
-    && export rvmsudo_secure_path=1 || export rvmsudo_secure_path=0
+  matrix:
+    - TOXENV='py27-ansible20'
+    - TOXENV='py27-ansible21'
+    - TOXENV='py27-ansible22'
+    - TOXENV='py27-ansible23'
 
 install:
-
-  # Add ansible.cfg to pick up roles path.
-  - "cp ./tests/ansible.cfg ./"
+  - 'pip install tox-travis'
 
 script:
-  # Check the role/playbook's syntax.
-  - ansible-playbook -i tests/inventory tests/test_travis.yml --syntax-check
-
-  # Run linter on role
-  - ansible-lint tasks/main.yml
-
-  # Run filter plugins tests
-  - py.test -v
-
-  # Run the role/playbook with ansible-playbook.
-  - >
-    ansible-playbook -i tests/inventory tests/test_travis.yml
-    --connection=local --sudo
-
-  # Run the role/playbook again, checking to make sure it's idempotent.
-  - >
-    ansible-playbook -i tests/inventory tests/test_travis.yml
-    --connection=local --sudo
-    | grep -q 'changed=[0].*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Run serverspec tests
-  - rvmsudo rspec
+  - 'tox -e "${TOXENV}"'
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
-
+  webhooks: 'https://galaxy.ansible.com/api/v1/notifications/'

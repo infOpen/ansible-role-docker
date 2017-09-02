@@ -1,0 +1,41 @@
+---
+
+# Debian family specific installation tasks
+
+- name: 'INSTALL | APT | Install system dependencies'
+  apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    update_cache: "{{ docker_repository_update_cache }}"
+    cache_valid_time: "{{ docker_repository_cache_valid_time }}"
+  with_items: "{{ docker_system_dependencies }}"
+
+
+- name: 'INSTALL | APT | Manage Docker repositories keys'
+  apt_key:
+    keyserver: "{{ item.keyserver }}"
+    id: "{{ item.id }}"
+    state: "{{ item.state | default('present') }}"
+  register: 'docker_check_import_keys'
+  retries: "{{ docker_repository_keys_retries }}"
+  delay: "{{ docker_repository_keys_delay }}"
+  until: "docker_check_import_keys.stderr is not defined"
+  with_items: "{{ docker_repositories_keys }}"
+
+
+- name: 'INSTALL | APT | Manage Docker repository files'
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: "{{ item.state | default('present') }}"
+    update_cache: "{{ item.update_cache | default(True) }}"
+  with_items: "{{ docker_repositories }}"
+
+
+- name: 'INSTALL | APT | Manage Docker packages'
+  apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    update_cache: "{{ docker_repository_update_cache }}"
+    cache_valid_time: "{{ docker_repository_cache_valid_time }}"
+  notify: 'HANDLER | Restart docker'
+  with_items: "{{ docker_packages }}"
