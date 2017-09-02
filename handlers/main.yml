@@ -1,10 +1,14 @@
 ---
 
-# Handlers file for docker
+# Handlers main file for docker role
 
-- name: 'restart docker'
+- name: 'HANDLER | Restart docker'
   become: True
   service:
     name: "{{ docker_service_name }}"
     state: 'restarted'
-
+  when: "docker_service_state == 'started'"
+  tags:
+    - 'role::docker'
+    - 'role::docker::config'
+    - 'role::docker::install'

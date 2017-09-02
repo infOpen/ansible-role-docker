@@ -1,0 +1,24 @@
+---
+
+# Service management tasks
+
+- name: 'SERVICE | Remove systemd -H option'
+  lineinfile:
+    dest: "{{ docker_paths.files.systemd_service.path }}"
+    line: 'ExecStart=/usr/bin/dockerd'
+    regexp: '^ExecStart\s*=.*'
+  register: 'check_docker_systemd_service_changed'
+
+
+- name: 'SERVICE | Reload systemd configuration'
+  command: 'systemctl daemon-reload'
+  notify: 'HANDLER | Restart docker'
+  when: 'check_docker_systemd_service_changed | changed'
+
+
+- name: 'SERVICE | Manage Docker service'
+  service:
+    name: "{{ docker_service_name }}"
+    enabled: "{{ docker_service_enabled }}"
+    state: "{{ docker_service_state }}"
+  notify: 'HANDLER | Restart docker'

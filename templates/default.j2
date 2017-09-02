@@ -11,228 +11,228 @@ DOCKER={{ docker_configuration_binary_file | quote }}
 export TMPDIR={{ docker_temporary_files_path | quote }}
 {% endif -%}
 
-DOCKER_OPTS="
+DOCKER-OPTS="
 {# Set CORS headers in the remote API #}
-{% if docker_daemon_option_api_cors_header %}
-    --api-cors-header={{ docker_daemon_option_api_cors_header | quote }} \
+{% if docker_daemon_options.api-cors-header %}
+    --api-cors-header={{ docker_daemon_options.api-cors-header | quote }} \
 {% endif -%}
 
 {# Attach containers to a network bridge #}
-{%- if docker_daemon_option_bridge %}
-    --bridge={{ docker_daemon_option_bridge | quote }} \
+{%- if docker_daemon_options.bridge %}
+    --bridge={{ docker_daemon_options.bridge | quote }} \
 {% endif -%}
 
 {# Specify network bridge IP #}
-{%- if docker_daemon_option_bip %}
-    --bip={{ docker_daemon_option_bip | quote }} \
+{%- if docker_daemon_options.bip %}
+    --bip={{ docker_daemon_options.bip | quote }} \
 {% endif -%}
 
 {# Enable debug mode #}
-{%- if docker_daemon_option_debug is defined %}
-    --debug={{ docker_daemon_option_debug | lower }} \
+{%- if docker_daemon_options.debug is defined %}
+    --debug={{ docker_daemon_options.debug | lower }} \
 {% endif -%}
 
 {# Container default gateway IPv4 address #}
-{%- if docker_daemon_option_default_gateway %}
-    --default-gateway={{ docker_daemon_option_default_gateway | quote }} \
+{%- if docker_daemon_options.default-gateway %}
+    --default-gateway={{ docker_daemon_options.default-gateway | quote }} \
 {% endif -%}
 
 {# Container default gateway IPv6 address #}
-{%- if docker_daemon_option_default_gateway_v6 %}
-    --default-gateway-v6={{ docker_daemon_option_default_gateway_v6 | quote }} \
+{%- if docker_daemon_options.default-gateway-v6 %}
+    --default-gateway-v6={{ docker_daemon_options.default-gateway-v6 | quote }} \
 {% endif -%}
 
 {# URL of the distributed storage backend #}
-{%- if docker_daemon_option_cluster_store %}
-    --cluster-store={{ docker_daemon_option_cluster_store | quote }} \
+{%- if docker_daemon_options.cluster-store %}
+    --cluster-store={{ docker_daemon_options.cluster-store | quote }} \
 {% endif -%}
 
 {# Address of the daemon instance on the cluster #}
-{%- if docker_daemon_option_cluster_advertise %}
-    --cluster-advertise={{ docker_daemon_option_cluster_advertise | quote }} \
+{%- if docker_daemon_options.cluster-advertise %}
+    --cluster-advertise={{ docker_daemon_options.cluster-advertise | quote }} \
 {% endif -%}
 
 {# Set cluster options (dict array) #}
-{%- if docker_daemon_option_cluster_store_opt %}
-{% for docker_cluster_store_opt in docker_daemon_option_cluster_store_opt %}
+{%- if docker_daemon_options.cluster-store-opt %}
+{% for docker_cluster_store_opt in docker_daemon_options.cluster-store-opt %}
     --cluster-store-opt={{ docker_cluster_store_opt | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# DNS server to use #}
-{%- if docker_daemon_option_dns %}
-{% for docker_dns_entry in docker_daemon_option_dns %}
+{%- if docker_daemon_options.dns %}
+{% for docker_dns_entry in docker_daemon_options.dns %}
     --dns={{ docker_dns_entry | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# DNS options to use #}
-{%- if docker_daemon_option_dns_opt %}
-{% for docker_dns_option in docker_daemon_option_dns_opt %}
+{%- if docker_daemon_options.dns-opt %}
+{% for docker_dns_option in docker_daemon_options.dns-opt %}
     --dns-opt={{ docker_dns_option | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# DNS search domains to use #}
-{%- if docker_daemon_option_dns_search %}
-{% for docker_dns_search in docker_daemon_option_dns_search %}
-    --dns_search={{ docker_dns_search | quote }} \
+{%- if docker_daemon_options.dns-search %}
+{% for docker_dns_search in docker_daemon_options.dns-search %}
+    --dns-search={{ docker_dns_search | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Set default ulimit settings for containers #}
-{%- if docker_daemon_option_default_ulimit %}
-{% for docker_ulimit in docker_daemon_option_default_ulimit %}
-    --default_ulimit={{ docker_ulimit | quote }} \
+{%- if docker_daemon_options.default-ulimit %}
+{% for docker_ulimit in docker_daemon_options.default-ulimit %}
+    --default-ulimit={{ docker_ulimit | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Exec driver to use #}
-{%- if docker_daemon_option_exec_driver %}
-    --exec-driver={{docker_daemon_option_exec_driver | quote }} \
+{%- if docker_daemon_options.exec-driver %}
+    --exec-driver={{docker_daemon_options.exec-driver | quote }} \
 {% endif -%}
 
 {# Set exec driver options #}
-{%- if docker_daemon_option_exec_opt %}
-{% for docker_exec_opt in docker_daemon_option_exec_opt %}
+{%- if docker_daemon_options.exec-opt %}
+{% for docker_exec_opt in docker_daemon_options.exec-opt %}
     --exec-opt={{ docker_exec_opt | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Root of the Docker execdriver #}
-{%- if docker_daemon_option_exec_root %}
-    --exec-root={{ docker_daemon_option_exec_root | quote }} \
+{%- if docker_daemon_options.exec-root %}
+    --exec-root={{ docker_daemon_options.exec-root | quote }} \
 {% endif -%}
 
 {# IPv4 subnet for fixed IPs #}
-{%- if docker_daemon_option_fixed_cidr %}
-    --fixed-cidr={{ docker_daemon_option_fixed_cidr | quote }} \
+{%- if docker_daemon_options.fixed-cidr %}
+    --fixed-cidr={{ docker_daemon_options.fixed-cidr | quote }} \
 {% endif -%}
 
 {# IPv6 subnet for fixed IPs #}
-{%- if docker_daemon_option_fixed_cidr_v6 %}
-    --fixed-cidr-v6={{ docker_daemon_option_fixed_cidr_v6 | quote }} \
+{%- if docker_daemon_options.fixed-cidr-v6 %}
+    --fixed-cidr-v6={{ docker_daemon_options.fixed-cidr-v6 | quote }} \
 {% endif -%}
 
 {# Group for the unix socket #}
-{%- if docker_daemon_option_group %}
-    --group={{ docker_daemon_option_group | quote }} \
+{%- if docker_daemon_options.group %}
+    --group={{ docker_daemon_options.group | quote }} \
 {% endif -%}
 
 {# Root of the Docker runtime #}
-{%- if docker_daemon_option_graph %}
-    --graph={{ docker_daemon_option_graph | quote }} \
+{%- if docker_daemon_options.graph %}
+    --graph={{ docker_daemon_options.graph | quote }} \
 {% endif -%}
 
 {# Daemon socket(s) to connect to #}
-{%- if docker_daemon_option_host %}
-{% for docker_daemon_socket in docker_daemon_option_host %}
+{%- if docker_daemon_options.host %}
+{% for docker_daemon_socket in docker_daemon_options.host %}
     --host={{ docker_daemon_socket | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Print usage #}
-{%- if docker_daemon_option_help is defined %}
-    --help={{ docker_daemon_option_help | lower }} \
+{%- if docker_daemon_options.help is defined %}
+    --help={{ docker_daemon_options.help | lower }} \
 {% endif -%}
 
 {# Enable inter-container communication #}
-{%- if docker_daemon_option_icc is defined %}
-    --icc={{ docker_daemon_option_icc | lower }} \
+{%- if docker_daemon_options.icc is defined %}
+    --icc={{ docker_daemon_options.icc | lower }} \
 {% endif -%}
 
 {# Enable insecure registry communication #}
-{%- if docker_daemon_option_insecure_registry %}
-{% for docker_insecure_registry in  docker_daemon_option_insecure_registry %}
+{%- if docker_daemon_options.insecure-registry %}
+{% for docker_insecure_registry in  docker_daemon_options.insecure-registry %}
     --insecure-registry={{ docker_insecure_registry | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Default IP when binding container ports #}
-{%- if docker_daemon_option_ip %}
-    --ip={{ docker_daemon_option_ip | quote }} \
+{%- if docker_daemon_options.ip %}
+    --ip={{ docker_daemon_options.ip | quote }} \
 {% endif -%}
 
-{# Enable net.ipv4.ip_forward #}
-{%- if docker_daemon_option_ip_forward is defined %}
-    --ip-forward={{ docker_daemon_option_ip_forward | lower }} \
+{# Enable net.ipv4.ip-forward #}
+{%- if docker_daemon_options.ip-forward is defined %}
+    --ip-forward={{ docker_daemon_options.ip-forward | lower }} \
 {% endif -%}
 
 {# Enable IP masquerading #}
-{%- if docker_daemon_option_ip_masq is defined %}
-    --ip-masq={{ docker_daemon_option_ip_masq | lower }} \
+{%- if docker_daemon_options.ip-masq is defined %}
+    --ip-masq={{ docker_daemon_options.ip-masq | lower }} \
 {% endif -%}
 
 {# Enable addition of iptables rules #}
-{%- if docker_daemon_option_iptables is defined %}
-    --iptables={{ docker_daemon_option_iptables | lower }} \
+{%- if docker_daemon_options.iptables is defined %}
+    --iptables={{ docker_daemon_options.iptables | lower }} \
 {% endif -%}
 
 {# Enable IPv6 networking #}
-{%- if docker_daemon_option_ipv6 is defined %}
-    --ipv6={{ docker_daemon_option_ipv6 | lower }} \
+{%- if docker_daemon_options.ipv6 is defined %}
+    --ipv6={{ docker_daemon_options.ipv6 | lower }} \
 {% endif -%}
 
 {# Set the logging level #}
-{%- if docker_daemon_option_log_level %}
-    --log-level={{ docker_daemon_option_log_level | quote }} \
+{%- if docker_daemon_options.log-level %}
+    --log-level={{ docker_daemon_options.log-level | quote }} \
 {% endif -%}
 
 {# Set key: value labels to the daemon #}
-{%- if docker_daemon_option_label %}
-{% for docker_label in docker_daemon_option_label %}
+{%- if docker_daemon_options.label %}
+{% for docker_label in docker_daemon_options.label %}
     --label={{ docker_label | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Default driver for container logs #}
-{%- if docker_daemon_option_log_driver %}
-    --log-driver={{ docker_daemon_option_log_driver | quote }} \
+{%- if docker_daemon_options.log-driver %}
+    --log-driver={{ docker_daemon_options.log-driver | quote }} \
 {% endif -%}
 
 {# Log driver specific options #}
-{%- if docker_daemon_option_log_opt %}
-{% for docker_log_opt in docker_daemon_option_log_opt %}
+{%- if docker_daemon_options.log-opt %}
+{% for docker_log_opt in docker_daemon_options.log-opt %}
     --log-opt={{ docker_log_opt | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Set the containers network MTU #}
-{%- if docker_daemon_option_mtu is defined %}
-    --mtu={{ docker_daemon_option_mtu }} \
+{%- if docker_daemon_options.mtu is defined %}
+    --mtu={{ docker_daemon_options.mtu }} \
 {% endif -%}
 
 {# Do not contact legacy registries #}
-{%- if docker_daemon_option_disable_legacy_registry is defined %}
+{%- if docker_daemon_options.disable-legacy-registry is defined %}
     --disable-legacy-registry=
-        {{- docker_daemon_option_disable_legacy_registry | lower }} \
+        {{- docker_daemon_options.disable-legacy-registry | lower }} \
 {% endif -%}
 
 {# Path to use for daemon PID file #}
-{%- if docker_daemon_option_pidfile %}
-    --pidfile={{ docker_daemon_option_pidfile | quote }} \
+{%- if docker_daemon_options.pidfile %}
+    --pidfile={{ docker_daemon_options.pidfile | quote }} \
 {% endif -%}
 
 {# Preferred Docker registry mirror #}
-{%- if docker_daemon_option_registry_mirror %}
-{% for docker_registry_mirror in docker_daemon_option_registry_mirror %}
+{%- if docker_daemon_options.registry-mirror %}
+{% for docker_registry_mirror in docker_daemon_options.registry-mirror %}
     --registry-mirror={{ docker_registry_mirror | quote }} \
 {% endfor %}
 {% endif -%}
 
 {# Storage driver to use #}
-{%- if docker_daemon_option_storage_driver %}
-    --storage-driver={{ docker_daemon_option_storage_driver | quote }} \
+{%- if docker_daemon_options.storage-driver %}
+    --storage-driver={{ docker_daemon_options.storage-driver | quote }} \
 {% endif -%}
 
 {# Enable selinux support #}
-{%- if docker_daemon_option_selinux_enabled is defined %}
-    --selinux-enabled={{ docker_daemon_option_selinux_enabled | lower }} \
+{%- if docker_daemon_options.selinux-enabled is defined %}
+    --selinux-enabled={{ docker_daemon_options.selinux-enabled | lower }} \
 {% endif -%}
 
 {# Set storage driver options #}
-{%- if docker_daemon_option_storage_opt %}
-{% for docker_storage_opt in docker_daemon_option_storage_opt %}
+{%- if docker_daemon_options.storage-opt %}
+{% for docker_storage_opt in docker_daemon_options.storage-opt %}
     --storage-opt={{ docker_storage_opt | quote }} \
 {% endfor %}
 {% endif -%}
@@ -241,35 +241,35 @@ DOCKER_OPTS="
 {# ------------------------- #}
 
 {# Use TLS; implied by --tlsverify #}
-{%- if docker_daemon_option_tls or  docker_daemon_option_tlsverify %}
-    --tls={{ docker_daemon_option_tls | lower }} \
+{%- if docker_daemon_options.tls or  docker_daemon_options.tlsverify %}
+    --tls={{ docker_daemon_options.tls | lower }} \
 
 {# Trust certs signed only by this CA #}
-{%- if docker_daemon_option_tlscacert %}
-    --tlscacert={{ docker_daemon_option_tlscacert | quote }} \
+{%- if docker_daemon_options.tlscacert %}
+    --tlscacert={{ docker_daemon_options.tlscacert | quote }} \
 {% endif -%}
 
 {# Path to TLS certificate file #}
-{%- if docker_daemon_option_tlscert %}
-    --tlscert={{ docker_daemon_option_tlscert | quote }} \
+{%- if docker_daemon_options.tlscert %}
+    --tlscert={{ docker_daemon_options.tlscert | quote }} \
 {% endif -%}
 
 {# Path to TLS key file #}
-{%- if docker_daemon_option_tlskey %}
-    --tlskey={{ docker_daemon_option_tlskey | quote }} \
+{%- if docker_daemon_options.tlskey %}
+    --tlskey={{ docker_daemon_options.tlskey | quote }} \
 {% endif -%}
 
 {# Use TLS and verify the remote #}
-{%- if docker_daemon_option_tlsverify is defined %}
-    --tlsverify={{ docker_daemon_option_tlsverify | lower }} \
+{%- if docker_daemon_options.tlsverify is defined %}
+    --tlsverify={{ docker_daemon_options.tlsverify | lower }} \
 {% endif -%}
 
 {# End TLS configuration #}
 {% endif -%}
 
 {# Use userland proxy for loopback traffic #}
-{%- if docker_daemon_option_userland_proxy is defined %}
-    --userland-proxy={{ docker_daemon_option_userland_proxy | lower }}
+{%- if docker_daemon_options.userland-proxy is defined %}
+    --userland-proxy={{ docker_daemon_options.userland-proxy | lower }}
 {% endif -%}
 "
 
