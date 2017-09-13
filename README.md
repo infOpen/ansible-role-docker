@@ -6,8 +6,11 @@ Install docker package.
 
 ## Requirements
 
-This role requires Ansible 2.0 or higher,
+This role requires Ansible 2.3 or higher,
 and platform requirements are listed in the metadata file.
+
+Info: This requirement is based on the Ansible versions managed by Molecule,
+but this role should perhaps run on lower Ansible versions.
 
 ## Testing
 
@@ -21,9 +24,6 @@ Currently, tests are done on:
 - Ubuntu Xenial
 
 and use:
-- Ansible 2.0.x
-- Ansible 2.1.x
-- Ansible 2.2.x
 - Ansible 2.3.x
 
 ### Running tests
