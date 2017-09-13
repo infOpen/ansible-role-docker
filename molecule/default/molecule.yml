@@ -33,6 +33,10 @@ provisioner:
             - 'unix:///var/run/docker.sock'
           tlscert: '/tmp/server.crt'
           tlskey: '/tmp/server.key'
+    host_vars:
+      docker-docker-jessie:
+        docker_packages:
+          - name: 'docker-ce=17.03*'
 scenario:
   name: 'default'
 verifier:
