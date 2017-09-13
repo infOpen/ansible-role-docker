@@ -3,7 +3,7 @@
 # Defaults vars file for docker role
 
 # Repositories and packages management
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Repositories
 docker_repository_update_cache: True
@@ -37,7 +37,7 @@ docker_paths:
 
 
 # Docker daemon options
-#----------------------
+# ----------------------
 
 docker_daemon_options: "{{ _docker_daemon_options }}"
 _docker_daemon_options:

@@ -12,7 +12,7 @@
 
 
 - name: 'INSTALL | Manage OS family installation tasks'
-  become: True
+  become: !!bool True
   include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
   tags:
     - 'role::docker'
@@ -20,7 +20,7 @@
 
 
 - name: 'CONFIG | Manage docker configuration'
-  become: True
+  become: !!bool True
   include: "{{ role_path }}/tasks/configure.yml"
   tags:
     - 'role::docker'
@@ -28,7 +28,7 @@
 
 
 - name: 'SERVICE | Manage service configuration'
-  become: True
+  become: !!bool True
   include: "{{ role_path }}/tasks/manage_service.yml"
   tags:
     - 'role::docker'
