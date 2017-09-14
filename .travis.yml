@@ -12,9 +12,6 @@ language: 'python'
 
 env:
   matrix:
-    - TOXENV='py27-ansible20'
-    - TOXENV='py27-ansible21'
-    - TOXENV='py27-ansible22'
     - TOXENV='py27-ansible23'
 
 install:
