@@ -72,3 +72,20 @@ def test_docker_command(host):
     """
 
     assert host.run_expect([0], 'docker run hello-world')
+
+
+@pytest.mark.parametrize('path,expected_content', [
+    ('/etc/docker/certs.d/foo.bar:8081/ca.crt', '__my_ca_cert__'),
+    ('/etc/docker/certs.d/foo.bar:8081/client.cert', '__my_client_cert__'),
+    ('/etc/docker/certs.d/foo.bar:8081/client.key', '__my_client_key__'),
+])
+def test_registries_certificates_deployments(host, path, expected_content):
+    """
+    Ensure Docker registries certificates are properly deployed
+    """
+
+    current_item = host.file(path)
+
+    assert current_item.exists
+    assert current_item.is_file
+    assert expected_content in current_item.content

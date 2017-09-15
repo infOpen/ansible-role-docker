@@ -33,6 +33,11 @@ provisioner:
             - 'unix:///var/run/docker.sock'
           tlscert: '/tmp/server.crt'
           tlskey: '/tmp/server.key'
+        docker_registries_certificates:
+          - name: 'foo.bar:8081'
+            ca_cert: '__my_ca_cert__'
+            client_cert: '__my_client_cert__'
+            client_key: '__my_client_key__'
     host_vars:
       docker-docker-jessie:
         docker_packages:

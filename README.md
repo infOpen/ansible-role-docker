@@ -77,6 +77,13 @@ docker_paths:
   dirs:
     config:
       path: '/etc/docker'
+    certs:
+      path: '/etc/docker/certs.d'
+
+
+# Docker registries certificates
+#------------------------------------------------------------------------------
+docker_registries_certificates: []
 
 
 # Docker daemon options
@@ -161,6 +168,29 @@ _docker_packages:
     state: 'absent'
   - name: 'docker-ce'
 ```
+
+## How define registries certificates
+
+Just use the `docker_registries_certificates` with this content structure:
+``` yaml
+docker_registries_certificates:
+  - name: 'foo.bar:8081'
+    client_cert: '__x509_client_certificate__'
+    client_key: '__client_key__'
+    ca_cert: '__ca_certificate__'
+```
+
+Each component is optionals. The above example will create this structure, with default paths:
+```
+|- etc
+|   |- docker
+|        |- certs.d
+|             |- foo.bar:8081
+|                  |- ca.crt
+|                  |- client.cert
+|                  |- client.key
+```
+
 
 ## Dependencies
 
