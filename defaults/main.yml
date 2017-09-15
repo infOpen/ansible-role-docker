@@ -34,6 +34,13 @@ docker_paths:
   dirs:
     config:
       path: '/etc/docker'
+    certs:
+      path: '/etc/docker/certs.d'
+
+
+# Docker registries certificates
+#------------------------------------------------------------------------------
+docker_registries_certificates: []
 
 
 # Docker daemon options
