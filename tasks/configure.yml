@@ -19,3 +19,58 @@
     owner: "{{ docker_paths.files.daemon_json.owner | default('root') }}"
     group: "{{ docker_paths.files.daemon_json.group | default('root') }}"
   notify: 'HANDLER | Restart docker'
+
+
+- name: 'CONFIG | Ensure root docker certificates folder exists'
+  file:
+    dest: "{{ docker_paths.dirs.certs.path }}"
+    mode: "{{ docker_paths.dirs.certs.mode | default('0700') }}"
+    owner: "{{ docker_paths.dirs.certs.owner | default('root') }}"
+    group: "{{ docker_paths.dirs.certs.group | default('root') }}"
+    state: 'directory'
+
+
+- name: 'CONFIG | Ensure all instances certs folders exists'
+  file:
+    dest: "{{ docker_paths.dirs.certs.path }}/{{ item.name }}"
+    mode: "{{ docker_paths.dirs.certs.mode | default('0700') }}"
+    owner: "{{ docker_paths.dirs.certs.owner | default('root') }}"
+    group: "{{ docker_paths.dirs.certs.group | default('root') }}"
+    state: 'directory'
+  with_items: "{{ docker_registries_certificates }}"
+
+
+- name: 'CONFIG | Manage all instances clients certificates'
+  copy:
+    content: "{{ item.client_cert }}"
+    dest: "{{ docker_paths.dirs.certs.path }}/{{ item.name }}/client.cert"
+    mode: "{{ item.mode | default('0400') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+  no_log: True
+  with_items: "{{ docker_registries_certificates }}"
+  when: "item.client_cert is defined"
+
+
+- name: 'CONFIG | Manage all instances clients private key'
+  copy:
+    content: "{{ item.client_key }}"
+    dest: "{{ docker_paths.dirs.certs.path }}/{{ item.name }}/client.key"
+    mode: "{{ item.mode | default('0400') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+  no_log: True
+  with_items: "{{ docker_registries_certificates }}"
+  when: "item.client_key is defined"
+
+
+- name: 'CONFIG | Manage all instances CA certificates'
+  copy:
+    content: "{{ item.ca_cert }}"
+    dest: "{{ docker_paths.dirs.certs.path }}/{{ item.name }}/ca.crt"
+    mode: "{{ item.mode | default('0644') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+  no_log: True
+  with_items: "{{ docker_registries_certificates }}"
+  when: "item.ca_cert is defined"
