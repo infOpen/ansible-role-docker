@@ -1,4 +1,4 @@
-docker==2.5.1
+docker==2.6.0
 molecule==2.4.0
 pytest==3.2.3
 python-vagrant==0.5.15
