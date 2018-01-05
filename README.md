@@ -1,8 +1,12 @@
 # docker
 
-[![Build Status](https://travis-ci.org/infOpen/ansible-role-docker.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-docker/master.svg?label=travis_master)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-docker/develop.svg?label=travis_develop)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Updates](https://pyup.io/repos/github/infOpen/ansible-role-docker/shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-docker/)
+[![Python 3](https://pyup.io/repos/github/infOpen/ansible-role-docker/python-3-shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-docker/)
+[![Ansible Role](https://img.shields.io/ansible/role/8495.svg)](https://galaxy.ansible.com/infOpen/docker/)
 
-Install docker package.
+Install and configure Docker package.
 
 ## Requirements
 
