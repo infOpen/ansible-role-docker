@@ -8,7 +8,7 @@
     state: "{{ item.state | default('present') }}"
     update_cache: "{{ docker_repository_update_cache }}"
     cache_valid_time: "{{ docker_repository_cache_valid_time }}"
-  with_items: "{{ docker_system_dependencies }}"
+  loop: "{{ docker_system_dependencies }}"
 
 
 - name: 'INSTALL | APT | Manage Docker repositories keys'
@@ -20,7 +20,7 @@
   retries: "{{ docker_repository_keys_retries }}"
   delay: "{{ docker_repository_keys_delay }}"
   until: "docker_check_import_keys.stderr is not defined"
-  with_items: "{{ docker_repositories_keys }}"
+  loop: "{{ docker_repositories_keys }}"
 
 
 - name: 'INSTALL | APT | Manage Docker repository files'
@@ -28,7 +28,7 @@
     repo: "{{ item.repo }}"
     state: "{{ item.state | default('present') }}"
     update_cache: "{{ item.update_cache | default(True) }}"
-  with_items: "{{ docker_repositories }}"
+  loop: "{{ docker_repositories }}"
 
 
 - name: 'INSTALL | APT | Manage Docker packages'
@@ -38,4 +38,4 @@
     update_cache: "{{ docker_repository_update_cache }}"
     cache_valid_time: "{{ docker_repository_cache_valid_time }}"
   notify: 'HANDLER | Restart docker'
-  with_items: "{{ docker_packages }}"
+  loop: "{{ docker_packages }}"
