@@ -38,3 +38,4 @@ _docker_packages:
 
 _docker_system_dependencies:
   - name: 'curl'
+  - name: 'e4fsprogs'

@@ -27,6 +27,17 @@
     - 'role::docker::config'
 
 
+- name: 'CONFIG | Remove data if required'
+  become: !!bool True
+  include_tasks: "{{ role_path }}/tasks/remove_data.yml"
+  when:
+    - "_docker_config_update is changed"
+    - "docker_remove_data | default(False)"
+  tags:
+    - 'role::docker'
+    - 'role::docker::config'
+
+
 - name: 'SERVICE | Manage service configuration'
   become: !!bool True
   include_tasks: "{{ role_path }}/tasks/manage_service.yml"

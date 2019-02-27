@@ -36,6 +36,8 @@ docker_paths:
       path: '/etc/docker'
     certs:
       path: '/etc/docker/certs.d'
+    data:
+      path: '/var/lib/docker'
 
 
 # Docker registries certificates
@@ -82,8 +84,8 @@ _docker_daemon_options:
   mtu: 0
   pidfile: '/var/run/docker.pid'
   registry-mirror: []
-  storage-driver: ''
   selinux-enabled: False
+  storage-driver: 'overlay2'
   storage-opt: []
   tls: False
   tlsverify: False

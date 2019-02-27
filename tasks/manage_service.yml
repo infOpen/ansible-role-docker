@@ -13,7 +13,7 @@
 - name: 'SERVICE | Reload systemd configuration'
   command: 'systemctl daemon-reload'
   notify: 'HANDLER | Restart docker'
-  when: 'check_docker_systemd_service_changed | changed'
+  when: 'check_docker_systemd_service_changed is changed'
 
 
 - name: 'SERVICE | Manage Docker service'

@@ -1,0 +1,16 @@
+---
+
+
+- name: 'CONFIG | Stop Docker service'
+  service:
+    name: "{{ docker_service_name }}"
+    state: 'stopped'
+
+
+- name: 'CONFIG | Remove Docker data'
+  file:
+    dest: "{{ docker_paths.dirs.data.path }}"
+    state: "{{ item }}"
+  loop:
+    - 'absent'
+    - 'directory'

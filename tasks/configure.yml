@@ -18,6 +18,7 @@
     mode: "{{ docker_paths.files.daemon_json.mode | default('0644') }}"
     owner: "{{ docker_paths.files.daemon_json.owner | default('root') }}"
     group: "{{ docker_paths.files.daemon_json.group | default('root') }}"
+  register: '_docker_config_update'
   notify: 'HANDLER | Restart docker'
 
 
