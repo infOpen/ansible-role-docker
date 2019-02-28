@@ -1,0 +1,41 @@
+---
+
+docker_repo_distribution: "{{ (ansible_distribution == 'RedHat')| ternary('centos', ansible_distribution) | lower }}"
+
+_docker_repositories:
+  - name: 'docker-ce-stable'
+    description: "Docker CE Stable - $basearch"
+    baseurl: "https://download.docker.com/linux/{{ docker_repo_distribution }}/{{ ansible_distribution_major_version }}/$basearch/stable"
+    gpgcheck: true
+    gpgkey: "https://download.docker.com/linux/{{ docker_repo_distribution }}/gpg"
+
+# Packages
+_docker_packages:
+  - name: 'docker'
+    state: 'absent'
+  - name: 'docker-client'
+    state: 'absent'
+  - name: 'docker-client-latest'
+    state: 'absent'
+  - name: 'docker-common'
+    state: 'absent'
+  - name: 'docker-latest'
+    state: 'absent'
+  - name: 'docker-latest-logrotate'
+    state: 'absent'
+  - name: 'docker-logrotate'
+    state: 'absent'
+  - name: 'docker-engine'
+    state: 'absent'
+  - name: 'docker.io*'
+    state: 'absent'
+  - name: 'docker-engine'
+    state: 'absent'
+  - name: 'docker-ce'
+  - name: 'docker-ce'
+  - name: 'docker-ce-cli'
+  - name: 'containerd.io'
+
+_docker_system_dependencies:
+  - name: 'curl'
+  - name: 'e4fsprogs'

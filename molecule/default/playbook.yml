@@ -2,8 +2,8 @@
 
 # Role tests
 
-- hosts: 'docker-vagrant-xenial64:docker-docker-xenial'
-  name: 'Install tests prerequisites'
+- name: 'Converge | Debian family | Prerequisites tasks'
+  hosts: 'os_family_debian'
   gather_facts: False
   tasks:
     - name: 'PREREQUISITES | APT | Do an apt-get update'
@@ -14,22 +14,30 @@
       become: True
       raw: 'apt-get install -qq python2.7'
       changed_when: False
-
-
-- hosts: 'all'
-  pre_tasks:
-    - name: 'PREREQUISITES | APT | Do an apt-get update'
-      become: True
-      raw: 'apt-get update -qq'
-      changed_when: False
     - name: 'PREREQUISITES | APT | Install net-tools, openssl and systemd'
       become: True
       raw: 'apt-get install -qq net-tools openssl systemd'
       changed_when: False
+
+
+- name: 'Converge | RedHat family | Prerequisites tasks'
+  hosts: 'os_family_redhat'
+  roles:
+    - role: 'geerlingguy.repo-epel'
+  post_tasks:
+    - name: 'PREREQUISITES | YUM | Install net-tools and python 2.7'
+      become: True
+      raw: 'yum install -y openssl net-tools python2.7 python-pip'
+      changed_when: False
+
+
+- name: 'Converge | Common prerequisites tasks'
+  hosts: 'all'
+  tasks:
     - name: 'PREREQUISITES | SSL | Generate SSL self-signed certificate'
       shell: >
-        openssl genrsa -des3 -passout pass:x -out /tmp/server.pass.key 2048;
-        openssl rsa -passin pass:x -in /tmp/server.pass.key
+        openssl genrsa -des3 -passout pass:1234azerty -out /tmp/server.pass.key 2048;
+        openssl rsa -passin pass:1234azerty -in /tmp/server.pass.key
         -out /tmp/server.key;
         rm /tmp/server.pass.key;
         openssl req -new -key /tmp/server.key -out /tmp/server.csr
@@ -37,5 +45,9 @@
         openssl x509 -req -days 365 -in /tmp/server.csr
         -signkey /tmp/server.key -out /tmp/server.crt;
       changed_when: False
+
+
+- name: 'Converge | Main tasks'
+  hosts: 'all'
   roles:
-    - role: "{{ role_name | default('ansible-role-docker') }}"
+    - role: "ansible-role-docker"
