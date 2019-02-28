@@ -75,3 +75,11 @@
   no_log: True
   with_items: "{{ docker_registries_certificates }}"
   when: "item.ca_cert is defined"
+
+
+- name: 'CONFIG | Manage privileged docker users'
+  user:
+    name: "{{ item }}"
+    groups: 'docker'
+    append: True
+  with_items: "{{ docker_users }}"

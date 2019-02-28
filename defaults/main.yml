@@ -44,6 +44,11 @@ docker_paths:
 
 # Docker registries certificates
 # -----------------------------------------------------------------------------
+docker_users: []
+
+
+# Docker registries certificates
+# -----------------------------------------------------------------------------
 docker_registries_certificates: []
 
 
