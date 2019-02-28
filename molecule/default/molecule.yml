@@ -72,6 +72,7 @@ provisioner:
           tlscert: '/tmp/server.crt'
           tlskey: '/tmp/server.key'
       os_family_redhat:
+        docker_files_systemd_service_path: '/lib/systemd/system/docker.service'
         docker_daemon_options:
           hosts:
             - 'tcp://127.0.0.1:8081'

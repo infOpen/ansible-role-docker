@@ -23,6 +23,7 @@ docker_service_enabled: True
 docker_service_state: 'started'
 
 # Configuration
+docker_files_systemd_service_path: "{{ _docker_files_systemd_service_path }}"
 docker_paths:
   files:
     defaults:
@@ -32,7 +33,7 @@ docker_paths:
     docker_compose:
       path: '/usr/local/bin/docker-compose'
     systemd_service:
-      path: "{{ _docker_files_systemd_service_path }}"
+      path: "{{ docker_files_systemd_service_path }}"
   dirs:
     config:
       path: '/etc/docker'
