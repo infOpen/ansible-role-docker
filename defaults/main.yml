@@ -32,7 +32,7 @@ docker_paths:
     docker_compose:
       path: '/usr/local/bin/docker-compose'
     systemd_service:
-      path: '/lib/systemd/system/docker.service'
+      path: "{{ _docker_files_systemd_service_path }}"
   dirs:
     config:
       path: '/etc/docker'

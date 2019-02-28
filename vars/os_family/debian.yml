@@ -2,6 +2,9 @@
 
 # Debian OS family specific variables
 
+# Paths
+_docker_files_systemd_service_path: '/lib/systemd/system/docker.service'
+
 # Repositories
 _docker_repositories:
   - repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable"

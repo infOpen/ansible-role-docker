@@ -1,5 +1,8 @@
 ---
 
+# Paths
+_docker_files_systemd_service_path: '/etc/systemd/system/docker.service'
+
 docker_repo_distribution: "{{ (ansible_distribution == 'RedHat')| ternary('centos', ansible_distribution) | lower }}"
 
 _docker_repositories:
