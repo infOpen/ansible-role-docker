@@ -45,3 +45,12 @@
     - 'role::docker'
     - 'role::docker::config'
     - 'role::docker::install'
+
+
+- name: 'SERVICE | Manage docker-compose'
+  become: !!bool True
+  include_tasks: "{{ role_path }}/tasks/manage_docker_compose.yml"
+  when: "docker_install_compose"
+  tags:
+    - 'role::docker'
+    - 'role::docker::install'

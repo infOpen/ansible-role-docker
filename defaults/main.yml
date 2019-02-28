@@ -29,6 +29,8 @@ docker_paths:
       path: '/etc/default/docker'
     daemon_json:
       path: '/etc/docker/daemon.json'
+    docker_compose:
+      path: '/usr/local/bin/docker-compose'
     systemd_service:
       path: '/lib/systemd/system/docker.service'
   dirs:
@@ -90,3 +92,10 @@ _docker_daemon_options:
   tls: False
   tlsverify: False
   userland-proxy: True
+
+
+# Docker Compose variables
+# -----------------------------------------------------------------------------
+docker_install_compose: True
+docker_compose_version: '1.23.2'
+docker_compose_path: "{{ docker_paths.files.docker_compose.path }}"
