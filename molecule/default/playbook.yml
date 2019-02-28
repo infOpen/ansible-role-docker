@@ -25,9 +25,9 @@
   roles:
     - role: 'geerlingguy.repo-epel'
   post_tasks:
-    - name: 'PREREQUISITES | YUM | Install python 2.7'
+    - name: 'PREREQUISITES | YUM | Install net-tools and python 2.7'
       become: True
-      raw: 'yum install -y openssl python2.7 python-pip'
+      raw: 'yum install -y openssl net-tools python2.7 python-pip'
       changed_when: False
 
 

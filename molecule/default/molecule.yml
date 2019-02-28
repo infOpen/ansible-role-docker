@@ -12,9 +12,12 @@ platforms:
     command: '/sbin/init'
     cap_add:
       - 'SYS_PTRACE'
+      - 'SYS_ADMIN'
     privileged: True
     groups:
       - 'os_family_redhat'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
   - name: "docker-docker-jessie"
     image: 'minimum2scp/systemd-jessie:latest'
     command: '/sbin/init'
