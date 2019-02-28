@@ -1,30 +1,37 @@
 # docker
 
-[![Build Status](https://travis-ci.org/infOpen/ansible-role-docker.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-docker/master.svg?label=travis_master)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Build Status](https://img.shields.io/travis/infOpen/ansible-role-docker/develop.svg?label=travis_develop)](https://travis-ci.org/infOpen/ansible-role-docker)
+[![Updates](https://pyup.io/repos/github/infOpen/ansible-role-docker/shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-docker/)
+[![Python 3](https://pyup.io/repos/github/infOpen/ansible-role-docker/python-3-shield.svg)](https://pyup.io/repos/github/infOpen/ansible-role-docker/)
+[![Ansible Role](https://img.shields.io/ansible/role/8495.svg)](https://galaxy.ansible.com/infOpen/docker/)
 
-Install docker package.
+Install and configure Docker package.
 
 ## Requirements
 
-This role requires Ansible 2.3 or higher,
+This role requires Ansible 2.4 or higher,
 and platform requirements are listed in the metadata file.
-
-Info: This requirement is based on the Ansible versions managed by Molecule,
-but this role should perhaps run on lower Ansible versions.
 
 ## Testing
 
 This role use [Molecule](https://github.com/metacloud/molecule/) to run tests.
 
-Locally, you can run tests on Docker (default driver) or Vagrant.
-Travis run tests using Docker driver only.
+Local and Travis tests run tests on Docker by default.
+See molecule documentation to use other backend.
 
 Currently, tests are done on:
+- CentOS 7
 - Debian Jessie
+- Debian Stretch
 - Ubuntu Xenial
+- Ubuntu Bionic
 
 and use:
-- Ansible 2.3.x
+- Ansible 2.4.x
+- Ansible 2.5.x
+- Ansible 2.6.x
+- Ansible 2.7.x
 
 ### Running tests
 
@@ -34,10 +41,12 @@ and use:
 $ tox
 ```
 
-#### Using Vagrant driver
+You can also configure molecule options and molecule command using environment variables:
+* `MOLECULE_OPTIONS` Default: "--debug"
+* `MOLECULE_COMMAND` Default: "test"
 
 ```
-$ MOLECULE_DRIVER=vagrant tox
+$ MOLECULE_OPTIONS='' MOLECULE_COMMAND=converge tox
 ```
 
 ## Role Variables

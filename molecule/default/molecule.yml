@@ -7,18 +7,49 @@ driver:
 lint:
   name: 'yamllint'
 platforms:
-  - name: 'docker-docker-jessie'
+  - name: "docker-docker-centos7"
+    image: 'centos/systemd:latest'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+      - 'SYS_ADMIN'
+    privileged: True
+    groups:
+      - 'os_family_redhat'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  - name: "docker-docker-jessie"
     image: 'minimum2scp/systemd-jessie:latest'
     command: '/sbin/init'
     cap_add:
       - 'SYS_PTRACE'
     privileged: True
-  - name: 'docker-docker-xenial'
+    groups:
+      - 'os_family_debian'
+  - name: "docker-docker-stretch"
+    image: 'minimum2scp/systemd-stretch:latest'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+    privileged: True
+    groups:
+      - 'os_family_debian'
+  - name: "docker-docker-xenial"
     image: 'solita/ubuntu-systemd:16.04'
     command: '/sbin/init'
     cap_add:
       - 'SYS_PTRACE'
     privileged: True
+    groups:
+      - 'os_family_debian'
+  - name: "docker-docker-bionic"
+    image: 'solita/ubuntu-systemd:18.04'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+    privileged: True
+    groups:
+      - 'os_family_debian'
 provisioner:
   name: 'ansible'
   lint:
@@ -27,25 +58,33 @@ provisioner:
     group_vars:
       all:
         ansible_python_interpreter: '/usr/bin/env python2.7'
+        docker_remove_data: True
+        docker_registries_certificates:
+          - name: 'foo.bar:8081'
+            ca_cert: '__my_ca_cert__'
+            client_cert: '__my_client_cert__'
+            client_key: '__my_client_key__'
+      os_family_debian:
         docker_daemon_options:
           hosts:
             - 'tcp://127.0.0.1:8081'
             - 'unix:///var/run/docker.sock'
           tlscert: '/tmp/server.crt'
           tlskey: '/tmp/server.key'
-        docker_registries_certificates:
-          - name: 'foo.bar:8081'
-            ca_cert: '__my_ca_cert__'
-            client_cert: '__my_client_cert__'
-            client_key: '__my_client_key__'
-    host_vars:
-      docker-docker-jessie:
-        docker_packages:
-          - name: 'docker-ce=17.03*'
+      os_family_redhat:
+        docker_daemon_options:
+          hosts:
+            - 'tcp://127.0.0.1:8081'
+            - 'unix:///var/run/docker.sock'
+          storage-driver: 'devicemapper'
+          tlscert: '/tmp/server.crt'
+          tlskey: '/tmp/server.key'
 scenario:
   name: 'default'
 verifier:
   name: 'testinfra'
+  additional_files_or_dirs:
+    - '../../tests'
   lint:
     name: 'flake8'
   options:

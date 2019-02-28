@@ -2,6 +2,7 @@
 
 # Handlers main file for docker role
 
+
 - name: 'HANDLER | Restart docker'
   become: True
   service:

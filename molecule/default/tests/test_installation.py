@@ -19,7 +19,7 @@ def test_packages(host):
 
 
 @pytest.mark.parametrize('item_type,path,user,group,mode', [
-    ('file', '/etc/default/docker', 'root', 'root', 0o644),
+    ('file', '/etc/docker/daemon.json', 'root', 'root', 0o644),
 ])
 def test_paths(host, item_type, path, user, group, mode):
     """
