@@ -13,44 +13,26 @@
 
 - name: 'INSTALL | Manage OS family installation tasks'
   become: !!bool True
-  include_tasks: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
-  tags:
-    - 'role::docker'
-    - 'role::docker::install'
+  block:
+    - name: 'INSTALL | Manage OS family installation tasks'
+      include_tasks: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
 
+    - name: 'CONFIG | Manage docker configuration'
+      include_tasks: "{{ role_path }}/tasks/configure.yml"
 
-- name: 'CONFIG | Manage docker configuration'
-  become: !!bool True
-  include_tasks: "{{ role_path }}/tasks/configure.yml"
-  tags:
-    - 'role::docker'
-    - 'role::docker::config'
+    - name: 'CONFIG | Remove data if required'
+      include_tasks: "{{ role_path }}/tasks/remove_data.yml"
+      when:
+        - "_docker_config_update is changed"
+        - "docker_remove_data | default(False)"
 
+    - name: 'SERVICE | Manage service configuration'
+      include_tasks: "{{ role_path }}/tasks/manage_service.yml"
 
-- name: 'CONFIG | Remove data if required'
-  become: !!bool True
-  include_tasks: "{{ role_path }}/tasks/remove_data.yml"
-  when:
-    - "_docker_config_update is changed"
-    - "docker_remove_data | default(False)"
-  tags:
-    - 'role::docker'
-    - 'role::docker::config'
-
-
-- name: 'SERVICE | Manage service configuration'
-  become: !!bool True
-  include_tasks: "{{ role_path }}/tasks/manage_service.yml"
+    - name: 'SERVICE | Manage docker-compose'
+      include_tasks: "{{ role_path }}/tasks/manage_docker_compose.yml"
+      when: "docker_install_compose"
   tags:
     - 'role::docker'
     - 'role::docker::config'
-    - 'role::docker::install'
-
-
-- name: 'SERVICE | Manage docker-compose'
-  become: !!bool True
-  include_tasks: "{{ role_path }}/tasks/manage_docker_compose.yml"
-  when: "docker_install_compose"
-  tags:
-    - 'role::docker'
     - 'role::docker::install'
